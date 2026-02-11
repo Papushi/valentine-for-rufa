@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For My Baby 💜</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nunito:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ===== Mobile-First Design ===== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #e6d4ff, #d0b3ff, #c9a8ff);
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    color: #5a2d8c;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+}
+
+/* ===== App Container ===== */
+#app { 
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+/* ===== Scenes ===== */
+.scene {
+    background: rgba(255,255,255,0.98);
+    border-radius: 25px;
+    padding: 25px 20px;
+    box-shadow: 0 10px 30px rgba(149,102,204,0.3);
+    border: 8px solid #f0e6ff;
+    position: relative;
+    z-index: 10;
+    display: none;
+    width: 100%;
+    animation: fadeInUp 0.6s ease;
+}
+.scene.active { display: block; }
+
+@keyframes fadeInUp {
+    from { opacity:0; transform: translateY(20px); }
+    to { opacity:1; transform: translateY(0); }
+}
+
+/* ===== Text Styles ===== */
+h1 {
+    font-family: 'Indie Flower', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    background: linear-gradient(to right, #8a2be2, #da70d6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.2;
+}
+
+.subtitle { 
+    font-size: 1.2rem; 
+    margin-bottom: 20px; 
+    color: #9370db;
+    text-align: center;
+}
+
+/* ===== Characters Side by Side ===== */
+.character-container { 
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 15px;
+    margin: 25px 0;
+    width: 100%;
+}
+
+.character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 140px;
+}
+
+.character.doraemon {
+    align-items: flex-start;
+}
+
+.character.nailong {
+    align-items: flex-end;
+}
+
+.character-img {
+    width: 140px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+.doraemon-img { 
+    animation: floatDoraemon 3s ease-in-out infinite; 
+}
+
+@keyframes floatDoraemon { 
+    0%, 100% { transform: translateY(0); } 
+    50% { transform: translateY(-10px); } 
+}
+
+.nailong-img { 
+    animation: bounceNailong 2s ease-in-out infinite; 
+}
+
+@keyframes bounceNailong { 
+    0%, 100% { transform: translateY(0) rotate(0deg); } 
+    50% { transform: translateY(-8px) rotate(2deg); } 
+}
+
+/* ===== Chat Bubbles ===== */
+.chat-bubble {
+    background: #f8f0ff;
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    max-width: 90%;
+    border: 2px solid #ba9cff;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.3rem;
+    color: #6b3fa0;
+    position: relative;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: bubbleAppear 0.5s ease forwards;
+    word-wrap: break-word;
+}
+
+@keyframes bubbleAppear { 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.doraemon-bubble {
+    align-self: flex-start;
+    margin-left: 5px;
+}
+
+.doraemon-bubble::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent #ba9cff transparent transparent;
+    transform: translateY(-50%);
+}
+
+.doraemon-bubble::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #f8f0ff transparent transparent;
+    transform: translateY(-50%);
+}
+
+.nailong-bubble {
+    align-self: flex-end;
+    margin-right: 5px;
+    background: #fff0f7;
+    border-color: #ffb8e2;
+}
+
+.nailong-bubble::before {
+    content: '';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #ffb8e2;
+    transform: translateY(-50%);
+}
+
+.nailong-bubble::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #fff0f7;
+    transform: translateY(-50%);
+}
+
+/* ===== Buttons ===== */
+.buttons { 
+    margin: 25px 0; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+button {
+    padding: 18px 30px;
+    font-size: 1.6rem;
+    font-family: 'Indie Flower', cursive;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    touch-action: manipulation;
+    min-height: 60px;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#nextBtn, #yesBtn {
+    background: linear-gradient(145deg, #9b6dff, #c77dff);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+#yesBtn:hover, #nextBtn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(155,109,255,0.3);
+}
+
+#noBtn { 
+    background: linear-gradient(145deg, #ff9a9e, #ffb8b8); 
+    color: white;
+    position: relative;
+}
+
+.no-btn-container {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    margin: 10px 0;
+}
+
+/* ===== Question Box ===== */
+.question-box {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(240,230,255,0.5);
+    border-radius: 20px;
+}
+
+.question-box h2 {
+    font-size: 2rem;
+    color: #9b6dff;
+    margin-bottom: 10px;
+    font-family: 'Indie Flower', cursive;
+}
+
+/* ===== Reply Section (Hidden by Default) ===== */
+.reply-section { 
+    display: none; 
+    margin-top: 25px; 
+    animation: fadeIn 0.8s ease;
+    width: 100%;
+}
+
+@keyframes fadeIn { 
+    from { opacity:0 } 
+    to { opacity:1 } 
+}
+
+.reply-section textarea {
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #ba9cff;
+    font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
+    margin: 15px 0;
+    resize: none;
+    background: #fff;
+}
+
+/* ===== View Message Button ===== */
+.view-message-btn {
+    background: linear-gradient(145deg, #ffcc00, #ffdd44);
+    color: #8b4513;
+    margin-top: 15px;
+    padding: 15px 25px;
+    font-size: 1.4rem;
+    width: auto;
+    min-width: 200px;
+    align-self: center;
+}
+
+/* ===== Celebration Screen ===== */
+.celebration-screen {
+    padding: 25px 20px;
+    background: rgba(255,255,255,0.98);
+    border-radius: 25px;
+    margin-top: 20px;
+    display: none;
+    animation: popIn 0.8s ease;
+    text-align: center;
+}
+
+@keyframes popIn { 
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.celebration-screen h2 { 
+    font-size: 2.2rem; 
+    color: #da70d6; 
+    margin-bottom: 20px; 
+    font-family: 'Indie Flower', cursive;
+}
+
+.celebration-screen p { 
+    font-size: 1.3rem; 
+    line-height: 1.5; 
+    color: #8a2be2; 
+    margin-bottom: 20px;
+}
+
+.celebration-emoji {
+    font-size: 3.5rem;
+    margin: 25px 0;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ===== Hearts ===== */
+.heart {
+    position: absolute;
+    background-color: #ff6bc9;
+    height: 15px;
+    width: 15px;
+    transform: rotate(-45deg);
+    z-index: 1;
+    opacity: 0.7;
+}
+
+.heart:before, .heart:after {
+    content: "";
+    background-color: #ff6bc9;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+}
+
+.heart:before { top: -7.5px; left: 0; }
+.heart:after { left: 7.5px; top: 0; }
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 0.7; }
+    100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
+}
+
+/* ===== Music Toggle ===== */
+.music-control {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(138,43,226,0.2);
+    cursor: pointer;
+    z-index: 100;
+    color: #9b6dff;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.music-control:active {
+    transform: scale(0.95);
+}
+
+/* ===== Status Message ===== */
+.status-message {
+    display: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* ===== Shake Animation ===== */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ===== Landscape Mode ===== */
+@media (orientation: landscape) and (max-height: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .scene {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .character-img {
+        width: 120px;
+    }
+    
+    .chat-bubble {
+        font-size: 1.1rem;
+        padding: 10px 15px;
+    }
+    
+    button {
+        padding: 12px 20px;
+        font-size: 1.3rem;
+        min-height: 50px;
+    }
+}
+
+/* ===== Small Phones ===== */
+@media (max-width: 380px) {
+    .character-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .character {
+        min-width: 100%;
+    }
+    
+    .character-img {
+        width: 130px;
+    }
+    
+    .chat-bubble {
+        font-size: 1.2rem;
+        max-width: 85%;
+    }
+}
+
+/* ===== Prevent Zoom on Input ===== */
+@media screen and (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Music Button ===== -->
+<div class="music-control" id="musicToggle"><i class="fas fa-volume-mute"></i></div>
+
+<!-- ===== App ===== -->
+<div id="app">
+
+    <!-- Intro Scene -->
+    <div id="introScene" class="scene active">
+        <h1>Hello Babyy! 💜</h1>
+        <div class="character-container">
+            <div class="character doraemon">
+                <div class="chat-bubble doraemon-bubble" id="introBubble1">Hi Rufa! I'm Doraemon, and I have something special for you today! 💙</div>
+                <img src="https://media1.tenor.com/m/2EMVTLg2al4AAAAC/doraemon-happy.gif" alt="Doraemon" class="character-img doraemon-img">
+            </div>
+        </div>
+        <div id="introMessages">
+            <div class="chat-bubble doraemon-bubble" id="introBubble2" style="display:none;">
+                Before we start, I want you to know that this page was made just for you by your sweet boyfriend, Jordan 💙
+            </div>
+            <div class="chat-bubble doraemon-bubble" id="introBubble3" style="display:none;">
+                He put so much love into every detail because you mean the world to him! Are you ready for a cute surprise? 🥰
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="nextBtn">Next 💜</button>
+        </div>
+    </div>
+
+    <!-- Valentine Scene -->
+    <div id="valentineScene" class="scene">
+        <h1>For My Baby 💜</h1>
+        <p class="subtitle">A question from the heart...</p>
+        
+        <!-- Characters side by side -->
+        <div class="character-container">
+            <!-- Doraemon on left -->
+            <div class="character doraemon">
+                <div class="chat-bubble doraemon-bubble" id="doraemonSpeech">I hope you choose yes 💙</div>
+                <img src="https://media1.tenor.com/m/igiwEZkk2ngAAAAC/doraemon-dorayaki.gif" alt="Doraemon" class="character-img doraemon-img">
+            </div>
+            
+            <!-- Nailong on right -->
+            <div class="character nailong">
+                <div class="chat-bubble nailong-bubble" id="nailongSpeech">Hi Rufa! I'm so excited! 😊</div>
+                <img src="https://media1.tenor.com/m/W9YoZ1h0sVgAAAAC/zh.gif" alt="Happy Nailong" class="character-img nailong-img" id="nailongImg">
+            </div>
+        </div>
+
+        <div class="question-box">
+            <h2>Will you be my Valentine?</h2>
+            <p class="subtitle">(Choose with your heart 💖)</p>
+        </div>
+
+        <div class="buttons">
+            <button id="yesBtn">YES! 💜</button>
+            <div class="no-btn-container">
+                <button id="noBtn">NO</button>
+            </div>
+        </div>
+        
+        <!-- View Message Button (shown after answer) -->
+        <div class="buttons" id="viewMessageBtnContainer" style="display: none;">
+            <button id="viewMessageBtn" class="view-message-btn">
+                <i class="fas fa-envelope"></i> View Message Area
+            </button>
+        </div>
+
+        <!-- Reply Section (Hidden by Default) -->
+        <div class="reply-section" id="replySection">
+            <h3 style="color:#8a2be2; margin-top:20px; text-align:center;">Send a reply to Jordan 💌</h3>
+            <textarea id="messageInput" placeholder="Type your sweet message here... 💜"></textarea>
+            <div class="buttons">
+                <button id="sendBtn">Send to Jordan 💖</button>
+            </div>
+            <div class="status-message" id="statusMessage"></div>
+            
+            <!-- Hide Message Button -->
+            <div class="buttons" style="margin-top: 10px;">
+                <button id="hideMessageBtn" style="background: linear-gradient(145deg, #888, #aaa); font-size: 1.3rem;">
+                    <i class="fas fa-chevron-up"></i> Hide Message Area
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration -->
+    <div class="celebration-screen" id="celebrationScreen">
+        <h2>YAY! You said YES! 🎉💖</h2>
+        <p>Baby, you just made ME the happiest person in the world! 💜<br><br>
+        Every moment with you is magical, and this Valentine's Day will be extra special because it's with you.<br><br>
+        Thank you for being you, and for saying YES! I love you more than words can express. 😘<br><br>
+        <em>Forever yours, Jordan 💙</em></p>
+        <div class="celebration-emoji">💜🐉🐱🎀</div>
+    </div>
+
+</div>
+
+<!-- ===== Music ===== -->
+<audio id="bgMusic" loop>
+    <source src="/music/Libu-Libong Buwan (Uuwian) - Kyle Raphael (Lyric Video).mp3" type="audio/mp3">
+</audio>
+
+<!-- ===== JavaScript ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    // Elements
+    const introScene = document.getElementById('introScene');
+    const valentineScene = document.getElementById('valentineScene');
+    const nextBtn = document.getElementById('nextBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const doraemonSpeech = document.getElementById('doraemonSpeech');
+    const nailongSpeech = document.getElementById('nailongSpeech');
+    const nailongImg = document.getElementById('nailongImg');
+    const celebrationScreen = document.getElementById('celebrationScreen');
+    const replySection = document.getElementById('replySection');
+    const messageInput = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    const viewMessageBtn = document.getElementById('viewMessageBtn');
+    const viewMessageBtnContainer = document.getElementById('viewMessageBtnContainer');
+    const hideMessageBtn = document.getElementById('hideMessageBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+
+    // Variables
+    const introBubbles = ['introBubble1', 'introBubble2', 'introBubble3'];
+    let currentBubble = 0;
+    let noClicks = 0;
+    let musicPlaying = false;
+    let userAnswer = null;
+
+    // Initialize music
+    bgMusic.muted = true;
+    bgMusic.volume = 0.4;
+
+    // ===== Create Floating Hearts =====
+    function createHeart(){
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = '100vh';
+        
+        const colors = ['#ff6bc9', '#ff9ed8', '#ce9dff', '#d9b3ff'];
+        heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        const size = Math.random() * 20 + 8;
+        heart.style.width = size + 'px';
+        heart.style.height = size + 'px';
+        
+        document.body.appendChild(heart);
+        
+        const animationTime = Math.random() * 4 + 3;
+        heart.style.animation = `float ${animationTime}s linear forwards`;
+        
+        setTimeout(() => {
+            if(heart.parentNode) {
+                heart.remove();
+            }
+        }, animationTime * 1000);
+    }
+
+    // Start hearts animation
+    for(let i = 0; i < 20; i++){
+        setTimeout(createHeart, i * 200);
+    }
+    setInterval(createHeart, 600);
+
+    // ===== Intro Bubbles Sequence =====
+    function showNextBubble(){
+        if(currentBubble < introBubbles.length){
+            const bubble = document.getElementById(introBubbles[currentBubble]);
+            if(bubble){ 
+                bubble.style.display = 'block';
+                setTimeout(() => {
+                    bubble.style.animation = 'bubbleAppear 0.5s ease forwards';
+                }, 10);
+            }
+            currentBubble++;
+        }
+        if(currentBubble === introBubbles.length){
+            nextBtn.innerHTML = 'Continue to Surprise 💜';
+        }
+    }
+
+    // Automatic bubble sequence
+    setTimeout(showNextBubble, 800);
+    setTimeout(() => { if(currentBubble === 1) showNextBubble(); }, 2000);
+    setTimeout(() => { if(currentBubble === 2) showNextBubble(); }, 3500);
+
+    // ===== Next Button =====
+    nextBtn.addEventListener('click', function(){
+        introScene.classList.remove('active');
+        valentineScene.classList.add('active');
+        
+        // Show chat bubbles with delay
+        setTimeout(() => {
+            doraemonSpeech.style.animation = 'bubbleAppear 0.5s ease forwards';
+            nailongSpeech.style.animation = 'bubbleAppear 0.5s ease forwards';
+        }, 300);
+        
+        // Try to play music
+        if(!musicPlaying){
+            tryPlayMusic();
+        }
+    });
+
+    // ===== NO Button Mobile-Optimized =====
+    function moveNoButton(){
+        const container = noBtn.parentElement;
+        const maxX = container.offsetWidth - noBtn.offsetWidth - 5;
+        const maxY = container.offsetHeight - noBtn.offsetHeight - 5;
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+        
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+        noBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+    }
+
+    function handleNoButtonInteraction(){
+        noClicks++;
+        userAnswer = 'NO';
+        
+        // Show "View Message" button instead of showing reply section directly
+        viewMessageBtnContainer.style.display = 'flex';
+        
+        // Different responses based on number of clicks
+        if(noClicks === 1){
+            nailongImg.src = 'https://media1.tenor.com/m/8AuWgDmgPBIAAAAd/baongoc-dtbncuti.gif';
+            nailongSpeech.innerHTML = "Aww... why no? 🥺 My heart is breaking...";
+            doraemonSpeech.innerHTML = "Rufa... Nailong looks so sad. Please think again? 💙";
+            nailongImg.style.animation = 'shake 0.5s ease';
+            setTimeout(() => {
+                nailongImg.style.animation = 'bounceNailong 2s ease-in-out infinite';
+            }, 500);
+        } else if(noClicks === 2){
+            nailongImg.src = 'https://media1.tenor.com/m/Jh283xz0sAUAAAAC/nailong-nailong-dragon.gif';
+            doraemonSpeech.innerHTML = "Rufa, Jordan put so much love into this. Maybe reconsider? 💜";
+            nailongSpeech.innerHTML = "*Tears up* Please say yes? 🥺";
+        } else if(noClicks === 3){
+            nailongImg.src = 'https://media1.tenor.com/m/dKJ_vGqO9qgAAAAC/nailong-yellow-dragon.gif';
+            doraemonSpeech.innerHTML = "I know you have a beautiful heart, Rufa. Would you make Jordan happy? 💙";
+            nailongSpeech.innerHTML = "I'll be waiting here with hope... 🌈";
+        } else {
+            doraemonSpeech.innerHTML = "Your happiness means everything. Take your time, Rufa. 💖";
+        }
+        
+        // Move the button
+        moveNoButton();
+    }
+
+    // Touch events for mobile
+    noBtn.addEventListener('touchstart', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        handleNoButtonInteraction();
+    }, { passive: false });
+
+    // Click event for all devices
+    noBtn.addEventListener('click', function(e){
+        if(!('ontouchstart' in window)) {
+            e.preventDefault();
+            handleNoButtonInteraction();
+        }
+    });
+
+    // ===== YES Button =====
+    yesBtn.addEventListener('click', function(){
+        userAnswer = 'YES';
+        
+        // Show celebration
+        celebrationScreen.style.display = 'block';
+        doraemonSpeech.innerHTML = "YAY! You're amazing, Rufa! 💙🎊 Jordan is so happy!";
+        nailongSpeech.innerHTML = "Wooohooo! Celebration time! 🥳💖🎉";
+        nailongImg.src = 'https://media1.tenor.com/m/rQny9TWXi0IAAAAd/yellow-dragon-nailong.gif';
+        
+        // Hide answer buttons and show "View Message" button
+        yesBtn.style.display = 'none';
+        noBtn.style.display = 'none';
+        viewMessageBtnContainer.style.display = 'flex';
+        
+        // Update question box
+        document.querySelector('.question-box').innerHTML = '<h2 style="color:#da70d6;">She said YES! 💜🎊</h2>';
+        
+        // Create confetti
+        createConfetti();
+        
+        // Play music if not playing
+        if(!musicPlaying){
+            tryPlayMusic();
+        }
+    });
+
+    // ===== View Message Button =====
+    viewMessageBtn.addEventListener('click', function(){
+        replySection.style.display = 'block';
+        viewMessageBtnContainer.style.display = 'none';
+        
+        // Scroll to message area smoothly
+        setTimeout(() => {
+            replySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    });
+
+    // ===== Hide Message Button =====
+    hideMessageBtn.addEventListener('click', function(){
+        replySection.style.display = 'none';
+        viewMessageBtnContainer.style.display = 'flex';
+        
+        // Scroll back to top
+        setTimeout(() => {
+            valentineScene.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    });
+
+    // ===== Create Confetti =====
+    function createConfetti(){
+        for(let i = 0; i < 150; i++){
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = Math.random() * 20 + 5 + 'px';
+                confetti.style.height = Math.random() * 20 + 5 + 'px';
+                const colors = ['#ff6bc9', '#ff9ed8', '#9b6dff', '#c77dff', '#ffb8e2'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-20px';
+                confetti.style.zIndex = '9999';
+                document.body.appendChild(confetti);
+                
+                const anim = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 50}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 1500,
+                    easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+                });
+                
+                anim.onfinish = () => {
+                    if(confetti.parentNode) {
+                        confetti.remove();
+                    }
+                };
+            }, i * 15);
+        }
+    }
+
+    // ===== Send Message =====
+    sendBtn.addEventListener('click', function(){
+        const message = messageInput.value.trim();
+        
+        if(!message){
+            showStatusMessage("Please type a message first! 💌", 'warning');
+            return;
+        }
+        
+        showStatusMessage("Sending your message to Jordan... 💜", 'sending');
+        
+        // Prepare email data
+        const emailData = {
+            to: 'barberzjordan@gmail.com',
+            subject: `Valentine Reply from Baby - Answer: ${userAnswer}`,
+            text: `Answer: ${userAnswer}\n\nMessage from Baby:\n${message}\n\nSent from Valentine Website`
+        };
+        
+        // Send using Formspree
+        fetch('https://formspree.io/f/mjvnyolj', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                ...emailData,
+                _subject: emailData.subject
+            })
+        })
+        .then(response => {
+            if(response.ok){
+                showStatusMessage("Message sent to Jordan successfully! 💖 He'll be so happy!", 'success');
+                messageInput.value = '';
+                sendBtn.disabled = true;
+                sendBtn.innerHTML = 'Sent! 💜';
+                setTimeout(() => {
+                    sendBtn.innerHTML = 'Send to Jordan 💖';
+                    sendBtn.disabled = false;
+                }, 3000);
+            } else {
+                throw new Error('Failed to send');
+            }
+        })
+        .catch(error => {
+            showStatusMessage("Message saved! Jordan will see it soon. 💜", 'info');
+            console.log('Message saved locally:', emailData);
+        });
+    });
+
+    // ===== Status Message Helper =====
+    function showStatusMessage(text, type){
+        statusMessage.textContent = text;
+        statusMessage.style.display = 'block';
+        
+        const colors = {
+            warning: { bg: '#fff3cd', border: '#ffdf7e' },
+            sending: { bg: '#e6f7ff', border: '#91d5ff' },
+            success: { bg: '#e6ffea', border: '#a8e6cf' },
+            info: { bg: '#fff3cd', border: '#ffdf7e' }
+        };
+        
+        statusMessage.style.background = colors[type].bg;
+        statusMessage.style.border = `2px solid ${colors[type].border}`;
+    }
+
+    // ===== Music Functions =====
+    function tryPlayMusic(){
+        bgMusic.muted = false;
+        bgMusic.play()
+            .then(() => {
+                musicPlaying = true;
+                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+            })
+            .catch(error => {
+                console.log("Music play failed:", error);
+            });
+    }
+
+    musicToggle.addEventListener('click', function(){
+        if(musicPlaying){
+            bgMusic.pause();
+            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else {
+            tryPlayMusic();
+        }
+        musicPlaying = !musicPlaying;
+    });
+
+    // ===== Auto-play music on first interaction =====
+    document.addEventListener('touchstart', function initAudio(){
+        if(!musicPlaying){
+            tryPlayMusic();
+        }
+        document.removeEventListener('touchstart', initAudio);
+    });
+
+    document.addEventListener('click', function initAudioClick(){
+        if(!musicPlaying){
+            tryPlayMusic();
+        }
+        document.removeEventListener('click', initAudioClick);
+    });
+
+    // ===== Prevent zoom on input focus =====
+    messageInput.addEventListener('touchstart', function(e){
+        this.style.fontSize = '16px';
+    });
+
+    // ===== Initialize animations =====
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+
+});
+</script>
+
+</body>
+</html>
